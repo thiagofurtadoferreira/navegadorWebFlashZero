@@ -1,0 +1,8 @@
+Navegador Web Flash Zero - Android v0.4.18
+
+MainActivity.java  ea6aba20aed1a79fdd36f38282c144a0710945132b860ce46a1ec1fbadad92f6
+APK v0.4.18       f5c944f1d1d1abf2d782143ea6b607f31967f105667fa954aaffbc9e9df49ba2
+
+Package: org.navegadorwebdozero.preview
+versionCode: 418
+versionName: 0.4.18
