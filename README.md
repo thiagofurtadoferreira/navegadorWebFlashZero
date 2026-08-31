@@ -1,46 +1,32 @@
 # Navegador Web Flash Zero
 
-Repositório oficial privado do projeto **Navegador Web Flash Zero**.
+Repositório oficial do projeto **Navegador Web Flash Zero**.
 
-## Versões preservadas
+## Referência estável Android
 
-| Plataforma / arquivo | Versão | Status GitHub | Validação |
-|---|---:|---|---|
-| Android — projeto Gradle | **v0.4.18** | ✅ GitHub | ✅ Validado |
-| Android — APK completo | **v0.4.18** | ✅ GitHub | ✅ ZIP/CRC + DEX + assinatura |
-| Android — source ZIP completo | **v0.4.18** | ✅ GitHub | ✅ ZIP íntegro |
-| Windows — código-fonte | **Preview v0.1.0 x64** | ✅ GitHub | ✅ Build Actions |
-| Windows — pacote portátil | **Preview v0.1.0 x64** | 🟡 GitHub Actions artifact | ✅ ZIP + SHA-256 |
-| iOS — source ZIP | **v0.1.0** | ⏳ Upload pendente | ✅ Validado localmente |
-| DRM autorizado / Media3 — source ZIP | **v0.4.0** | ⏳ Upload pendente | ✅ Validado localmente |
-| Keystores, senhas e tokens | — | 🔐 Secret store | 🔐 Não versionados em texto aberto |
+A versão Android preservada como base estável é a **v0.4.18**, anterior às alterações rejeitadas da v0.4.19.
 
-Inventário detalhado e hashes: [`STATUS.md`](STATUS.md).
+- Versão: `0.4.18`
+- versionCode: `418`
+- Pacote: `org.navegadorwebdozero.preview`
+- APK estável SHA-256: `f5c944f1d1d1abf2d782143ea6b607f31967f105667fa954aaffbc9e9df49ba2`
+- MainActivity.java SHA-256: `ea6aba20aed1a79fdd36f38282c144a0710945132b860ce46a1ec1fbadad92f6`
 
-- Pacote Android: `org.navegadorwebdozero.preview`
-- Estado Android: versão estável de referência antes das alterações da v0.4.19
-- APK Android SHA-256: `f5c944f1d1d1abf2d782143ea6b607f31967f105667fa954aaffbc9e9df49ba2`
-- Windows ZIP SHA-256: `d9883f9e9a41f658628538d15e23a4ef2a1bc5f14f9ca411b8a43259aa3735b9`
+## Estrutura Android
 
-## Estrutura
+- `android/` — projeto Android/Gradle da v0.4.18.
+- `android/app/src/main/java/org/navegadorwebdozero/preview/MainActivity.java` — Activity principal restaurada e validada a partir do snapshot estável.
+- `tools/android/v0.4.18/` — snapshot Base64/GZIP, hashes e ferramenta de restauração reproduzível do `MainActivity.java`.
+- `.github/workflows/restore-android-v0418.yml` — valida e restaura automaticamente o `MainActivity.java` a partir do snapshot caso seja necessário.
 
-- `android/` — estrutura do projeto Android/Gradle.
-- `windows/` — código da versão Windows baseada em Electron.
-- `.github/workflows/windows-build.yml` — compilação reproduzível Windows x64.
-- `tools/android/v0.4.18/` — snapshot dos arquivos-chave da versão Android estável.
-- `artifacts/android/v0.4.18/` — APK, source ZIP, ícone, notas e validação Android.
-- `artifacts/windows/v0.1.0/` — registro e validação da compilação Windows.
+## Integridade da recuperação
 
-## Windows Preview v0.1.0
+O `MainActivity.java` foi reconstruído a partir do snapshot compactado preservado no repositório recuperado e validado por SHA-256 antes de ser gravado nesta árvore. Nenhum código da v0.4.19 rejeitada foi usado para substituir a Activity estável.
 
-A primeira build Windows x64 foi compilada com sucesso no GitHub Actions a partir do commit `8eb61cb4c4a5b3658951463d61d59f79281ff3c0`, usando Electron 43.4.0 e `@electron/packager` 20.3.0. O pacote é portátil e não possui assinatura Authenticode nesta prévia, portanto o Windows SmartScreen pode exibir um aviso no primeiro uso.
+## Estado funcional preservado
 
-O ZIP portátil excede o limite normal de arquivo individual do GitHub e é preservado como GitHub Actions artifact `9545875547`.
-
-## Estado da gravação por área Android
-
-Na v0.4.18 a seleção X1/X2/Y1/Y2 e o controle de parada funcionam. O MP4 ainda usa a captura da tela inteira; o recorte físico da região selecionada e os perfis de resolução pertencem ao trabalho da v0.4.19 e não foram misturados nesta referência estável.
+A v0.4.18 mantém a referência funcional anterior ao trabalho da v0.4.19. Entre os recursos preservados estão a seleção X1/X2/Y1/Y2 para gravação, controle de parada, reprodução em segundo plano e estrutura do navegador existente nessa versão.
 
 ## Segurança
 
-Código, documentação, builds e artefatos não secretos são preservados no repositório. Chaves privadas de assinatura, senhas, tokens e outros segredos permanecem fora do histórico Git e devem ser fornecidos ao CI por GitHub Actions Secrets ou cofre equivalente. Isso continua valendo mesmo para repositórios privados.
+Keystores, chaves privadas, senhas, tokens e outros segredos não são versionados. Os nomes de secrets necessários para builds assinadas estão documentados em `SECRETS_REQUIRED.md`.
