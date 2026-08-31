@@ -1,0 +1,41 @@
+name: Restore Android v0.4.18 source
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/android/v0.4.18/**'
+      - '.github/workflows/restore-android-v0418.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore-main-activity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Restore and verify stable MainActivity
+        run: python3 tools/android/v0.4.18/restore_main_activity.py
+
+      - name: Commit restored Java when needed
+        shell: bash
+        run: |
+          TARGET='android/app/src/main/java/org/navegadorwebdozero/preview/MainActivity.java'
+          if git diff --quiet -- "$TARGET" && git ls-files --error-unmatch "$TARGET" >/dev/null 2>&1; then
+            echo 'MainActivity v0.4.18 already versioned and unchanged.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$TARGET"
+          git commit -m 'Restore verified Android v0.4.18 MainActivity [skip ci]'
+          git push
