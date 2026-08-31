@@ -1,0 +1,19 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'org.navegadorwebdozero.preview'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'org.navegadorwebdozero.preview'
+        minSdk 24
+        targetSdk 35
+        versionCode 418
+        versionName '0.4.18'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
